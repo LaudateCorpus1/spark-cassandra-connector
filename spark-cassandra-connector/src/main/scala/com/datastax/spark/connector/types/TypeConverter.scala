@@ -11,6 +11,7 @@ import scala.collection.JavaConversions._
 import scala.collection.immutable.{TreeMap, TreeSet}
 import scala.reflect.runtime.universe._
 import org.apache.commons.lang3.tuple
+import org.apache.spark.unsafe.types.UTF8String
 import org.joda.time.{DateTime, LocalDate => JodaLocalDate}
 import com.datastax.driver.core.LocalDate
 import com.datastax.spark.connector.TupleValue
@@ -401,6 +402,7 @@ object TypeConverter {
     def convertPF = {
       case x: UUID => x
       case x: String => UUID.fromString(x)
+      case x: UTF8String => UUID.fromString(x.toString())
     }
   }
 
@@ -411,6 +413,7 @@ object TypeConverter {
     def convertPF = {
       case x: InetAddress => x
       case x: String => InetAddress.getByName(x)
+      case x: UTF8String => InetAddress.getByName(x.toString())
     }
   }
 
